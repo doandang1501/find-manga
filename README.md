@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # find-manga
 =======
 # FindManga
@@ -45,4 +44,3 @@ No host permissions, no data collection, no network requests from the extension 
 
 - Microsoft Edge 88+ (Manifest V3 support)
 - Works on any webpage
->>>>>>> 6d5b0ed (first commit)
