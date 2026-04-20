@@ -1,21 +1,45 @@
 # FindManga
 
-A lightweight Microsoft Edge extension that lets you open a manga entry directly from any 6-digit code on a webpage — no copy-pasting required.
+A lightweight Microsoft Edge extension for saving and opening manga by 6-digit code — directly from any webpage via right-click.
+
+## Features
+
+- Highlight any 6-digit number → right-click → **Find Manga**
+- Open the manga in a new tab instantly
+- Save codes to a personal library with custom tags
+- Browse saved codes through the popup with tag-based filtering
 
 ## How it works
 
-1. Highlight any 6-digit number on a page
+1. Highlight a 6-digit number on any webpage
 2. Right-click → **Find Manga**
-3. A new tab opens at `https://nhentai.website/g/[number]`
+3. Choose an action from the submenu:
 
-If the selected text is not exactly 6 digits, an alert will notify you instead of opening a wrong URL.
+```
+Find Manga
+├── Keep looking       → opens https://nhentai.website/g/[code]
+└── Save code
+    ├── Save anyway    → saves to #anyway
+    └── Save by tag    → pick from your configured tags
+```
+
+## Popup — Code Library
+
+Click the extension icon to open the library:
+
+- **Tag navigation bar** — `All`, your custom tags, `#anyway`; defaults to **All**
+- **Code cards** — show the 6-digit code, its tag, an open link, and a delete button
+- **Gear icon** — manage tags (add / remove); new tags appear in the right-click menu immediately
 
 ## Project structure
 
 ```
 FindManga/
 ├── manifest.json       # Extension manifest (Manifest V3)
-├── background.js       # Service worker — context menu logic
+├── background.js       # Service worker — context menu & storage logic
+├── popup.html          # Extension popup UI
+├── popup.css           # Popup styles
+├── popup.js            # Popup logic
 └── icons/
     ├── icon16.png
     ├── icon48.png
@@ -24,21 +48,26 @@ FindManga/
 
 ## Installation (Edge Developer Mode)
 
-1. Open Edge and navigate to `edge://extensions/`
-2. Toggle **Developer mode** on (bottom-left corner)
-3. Click **Load unpacked**
-4. Select the `FindManga` folder
-5. The extension is now active — no restart needed
+1. Open Edge and go to `edge://extensions/`
+2. Enable **Developer mode** (bottom-left toggle)
+3. Click **Load unpacked** and select the `FindManga` folder
+4. The extension is active — no restart needed
 
 ## Permissions
 
 | Permission | Reason |
 | --- | --- |
-| `contextMenus` | Adds the "Find Manga" item to the right-click menu |
+| `contextMenus` | Adds the right-click menu |
+| `storage` | Persists saved codes and tags locally |
+| `scripting` | Shows in-page alerts for invalid selections |
 
-No host permissions, no data collection, no network requests from the extension itself.
+No host permissions. No data leaves your browser.
 
 ## Requirements
 
+<<<<<<< HEAD
 - Microsoft Edge 88+ (Manifest V3 support)
 - Works on any webpage
+=======
+- Microsoft Edge 88+ (Manifest V3)
+>>>>>>> e51185a (Add feature)
