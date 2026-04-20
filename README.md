@@ -1,5 +1,3 @@
-# find-manga
-=======
 # FindManga
 
 A lightweight Microsoft Edge extension that lets you open a manga entry directly from any 6-digit code on a webpage — no copy-pasting required.
