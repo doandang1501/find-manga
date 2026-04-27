@@ -28,6 +28,7 @@
   --iris:         #9b8ff5;
   --iris-dim:     rgba(155,143,245,0.15);
   --ease:         cubic-bezier(0.4, 0, 0.2, 1);
+  --star-empty:   rgba(255,255,255,0.15);
 }
 
 /* ── LIGHT ── */
@@ -45,6 +46,7 @@
   --footer-bg:    rgba(255,255,255,0.4);
   --text:         #18182a;
   --muted:        #8888aa;
+  --star-empty:   rgba(0,0,0,0.13);
 }
 
 /* smooth transition on theme change */
@@ -316,3 +318,70 @@ footer {
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast.success { border-color: rgba(155,143,245,0.4); color: var(--iris); }
 .toast.error   { border-color: rgba(255,107,157,0.4); color: var(--sakura); }
+
+/* ── TEXTAREA ── */
+textarea {
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  padding: 9px 14px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  resize: vertical;
+  min-height: 72px;
+  width: 100%;
+  line-height: 1.5;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s var(--ease);
+}
+textarea:focus {
+  border-color: var(--iris);
+  box-shadow: 0 0 0 3px var(--iris-dim);
+  background: var(--input-focus);
+}
+textarea::placeholder { color: var(--muted); opacity: 0.5; }
+
+/* ── STAR RATING ── */
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 0;
+  cursor: pointer;
+  user-select: none;
+}
+.star-ico {
+  position: relative;
+  display: inline-block;
+  font-size: 20px;
+  line-height: 1;
+  width: 1.05em;
+  text-align: center;
+  color: var(--star-empty);
+}
+.star-ico.full { color: var(--sakura); }
+.star-ico.half::after {
+  content: "★";
+  position: absolute;
+  left: 0; top: 0;
+  color: var(--sakura);
+  clip-path: inset(0 50% 0 0);
+  pointer-events: none;
+}
+.star-rating:hover .star-ico { transform: scale(1.05); }
+.sh {
+  position: absolute;
+  top: 0; height: 100%; width: 50%;
+  cursor: pointer;
+  z-index: 1;
+}
+.sh.l { left: 0; }
+.sh.r { right: 0; }
+.star-score {
+  margin-left: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sakura);
+  min-width: 28px;
+}

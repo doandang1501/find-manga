@@ -15,12 +15,31 @@
         <button class="sec-btn"        data-sec="jav">JAV</button>
       </div>
     </div>
-    <button id="btn-settings" class="icon-btn" title="Manage tags">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="3"/>
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-      </svg>
-    </button>
+    <div class="header-right">
+      <!-- Import codes from ZIP -->
+      <button id="btn-import" class="icon-btn" title="Import shared codes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+      </button>
+      <!-- Share / export selected codes -->
+      <button id="btn-share" class="icon-btn" title="Share codes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+      </button>
+      <!-- Settings / manage tags -->
+      <button id="btn-settings" class="icon-btn" title="Manage tags">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
   </header>
 
   <!-- SETTINGS PANEL -->
@@ -43,11 +62,7 @@
     </div>
   </div>
 
-  <!--
-    sections-wrapper: position:relative, flex:1
-    Both sections live here as position:absolute overlays.
-    Switching uses opacity+transform — zero layout reflow, zero popup resize.
-  -->
+  <!-- SECTIONS WRAPPER -->
   <div class="sections-wrapper">
 
     <div id="section-manga" class="section">
@@ -62,6 +77,92 @@
 
   </div>
 
+  <!-- SHARE BAR — flex child of body, shown only in share mode -->
+  <div id="share-bar" class="share-bar hidden">
+    <span id="share-count" class="share-count">0 selected</span>
+    <div class="share-bar-actions">
+      <button id="btn-cancel-share" class="btn-share-cancel">Cancel</button>
+      <button id="btn-do-share" class="btn-share-export" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        Export ZIP
+      </button>
+    </div>
+  </div>
+
+  <!-- ── EDIT MODAL (Manga & JAV) ─────────────────────────────── -->
+  <div id="edit-modal" class="modal-overlay hidden">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <span id="edit-modal-code" class="code-num"></span>
+          <span id="edit-modal-tag"  class="code-tag"></span>
+        </div>
+        <button id="edit-modal-close" class="icon-btn modal-close-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="15" height="15">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-field">
+          <label class="modal-label">Description <span class="modal-hint">optional</span></label>
+          <textarea id="edit-description" rows="3" maxlength="500" placeholder="Notes, thoughts..."></textarea>
+        </div>
+        <div class="modal-field">
+          <label class="modal-label">Rating <span class="modal-hint">optional · click same value to clear</span></label>
+          <div id="edit-rating-widget" class="star-rating"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="edit-modal-cancel" class="btn-modal-secondary">Cancel</button>
+        <button id="edit-modal-save"   class="btn-modal-primary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── IMPORT MODAL ──────────────────────────────────────────── -->
+  <div id="import-modal" class="modal-overlay hidden">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <span class="modal-title-text">Import Codes</span>
+        <button id="import-modal-close" class="icon-btn modal-close-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="15" height="15">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" id="import-modal-body">
+        <!-- injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONFLICT MODAL ────────────────────────────────────────── -->
+  <div id="conflict-modal" class="modal-overlay hidden">
+    <div class="modal-panel modal-panel-wide">
+      <div class="modal-header">
+        <span class="modal-title-text">Duplicate Codes Found</span>
+        <button id="conflict-modal-close" class="icon-btn modal-close-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="15" height="15">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" id="conflict-modal-body">
+        <!-- injected by JS -->
+      </div>
+      <div class="modal-footer">
+        <button id="conflict-cancel"  class="btn-modal-secondary">Cancel</button>
+        <button id="conflict-confirm" class="btn-modal-primary">Confirm Import</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="jszip.min.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

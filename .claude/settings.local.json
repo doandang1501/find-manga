@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Invoke-WebRequest -Uri \"https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js\" -OutFile \"D:\\\\Congty\\\\canhan\\\\FindManga\\\\jszip.min.js\"; Write-Output \"Downloaded: $\\(\\(Get-Item 'D:\\\\Congty\\\\canhan\\\\FindManga\\\\jszip.min.js'\\).Length\\) bytes\")",
+      "PowerShell(Get-ChildItem \"D:\\\\Congty\\\\canhan\\\\FindManga\" | Where-Object { -not $_.PSIsContainer } | Select-Object Name, @{N=\"KB\";E={[math]::Round\\($_.Length/1KB,1\\)}} | Format-Table -AutoSize)"
+    ]
+  }
+}
