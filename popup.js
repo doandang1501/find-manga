@@ -356,7 +356,7 @@ function renderJav() {
     ? javCodes
     : javCodes.filter(c => (c.tag||"") === activeJavTab);
   if (!filtered.length) {
-    list.innerHTML = `<div class="empty-state">${ICO_EMPTY}<span>No JAV codes saved yet.<br>Right-click any text → Find Manga → Save JAV.</span></div>`;
+    list.innerHTML = `<div class="empty-state">${ICO_EMPTY}<span>No Japanese Movie codes saved yet.<br>Right-click any text → Find Manga → Save Japanese Movie.</span></div>`;
     return;
   }
   [...filtered].sort((a,b) => b.savedAt - a.savedAt).forEach(item => {
@@ -733,7 +733,7 @@ async function handleZipImport(file, modalBody) {
 function showImportPreview(modalBody, manga, jav) {
   const allItems = [
     ...manga.map(m => ({ ...m, _type:"manga" })),
-    ...jav.map(j => ({ ...j, _type:"jav" }))
+    ...jav.map(j => ({ ...j, _type:"jmovie" }))
   ];
 
   if (!allItems.length) {
@@ -744,6 +744,7 @@ function showImportPreview(modalBody, manga, jav) {
   // Detect conflicts
   const mangaConflicts = manga.filter(m => mangaCodes.some(c => c.code===m.code && (c.tag||"")===(m.tag||"")));
   const javConflicts   = jav.filter(j => javCodes.some(c => c.code===j.code && (c.tag||"")===(j.tag||"")));
+
   const totalConflicts = mangaConflicts.length + javConflicts.length;
 
   const newCount = allItems.length - totalConflicts;
@@ -759,7 +760,7 @@ function showImportPreview(modalBody, manga, jav) {
   const list = document.createElement("ul"); list.className = "import-preview-list";
   allItems.forEach(item => {
     const li = document.createElement("li"); li.className = "import-preview-item";
-    const typeTag = document.createElement("span"); typeTag.className = `ipi-type ${item._type}`; typeTag.textContent = item._type;
+    const typeTag = document.createElement("span"); typeTag.className = `ipi-type ${item._type}`; typeTag.textContent = item._type === "jmovie" ? "J-Movie" : "Manga";
     const code    = document.createElement("span"); code.className = "ipi-code"; code.textContent = item.code;
     const tag     = document.createElement("span"); tag.className = "ipi-tag";  tag.textContent = item.tag ? `#${item.tag}` : "";
     li.append(typeTag, code, tag);
@@ -805,7 +806,7 @@ function showConflictModal(manga, jav, mangaConflicts, javConflicts) {
     decisions.set(key, "keep");   // default: keep old
 
     const li = document.createElement("li"); li.className = "conflict-item";
-    const typeTag = document.createElement("span"); typeTag.className = `ipi-type ${type}`; typeTag.textContent = type;
+    const typeTag = document.createElement("span"); typeTag.className = `ipi-type ${type}`; typeTag.textContent = type === "jmovie" ? "J-Movie" : "Manga";
     const code    = document.createElement("span"); code.className = "ci-code"; code.textContent = item.code;
     const tag     = document.createElement("span"); tag.className  = "ci-tag";  tag.textContent = item.tag ? `#${item.tag}` : "";
 
@@ -828,7 +829,7 @@ function showConflictModal(manga, jav, mangaConflicts, javConflicts) {
   };
 
   mangaConflicts.forEach(m => addConflictItem(m, "manga"));
-  javConflicts.forEach(j => addConflictItem(j, "jav"));
+  javConflicts.forEach(j => addConflictItem(j, "jmovie"));
   body.appendChild(list);
 
   document.getElementById("conflict-confirm").onclick = () => {

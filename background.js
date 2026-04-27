@@ -5,7 +5,7 @@ function buildMenus(tags = []) {
     chrome.contextMenus.create({ id: "find-manga",    title: "Find Manga", contexts: ["selection"] });
     chrome.contextMenus.create({ id: "keep-looking",  parentId: "find-manga", title: "Keep looking",  contexts: ["selection"] });
     chrome.contextMenus.create({ id: "save-code",     parentId: "find-manga", title: "Save code",     contexts: ["selection"] });
-    chrome.contextMenus.create({ id: "save-jav",      parentId: "find-manga", title: "Save JAV",      contexts: ["selection"] });
+    chrome.contextMenus.create({ id: "save-jav",      parentId: "find-manga", title: "Save Japanese Movie", contexts: ["selection"] });
 
     // Save code sub-items
     // "Save anyway" = save with NO tag (appears in All only)
@@ -82,11 +82,11 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     return;
   }
 
-  // Save JAV → open dedicated form window
+  // Save Japanese Movie → open dedicated form window
   if (id === "save-jav") {
     const code = encodeURIComponent(selected);
     chrome.windows.create({
-      url: chrome.runtime.getURL(`jav-form.html?code=${code}`),
+      url: chrome.runtime.getURL(`movie-form.html?code=${code}`),
       type: "popup",
       width: 520,
       height: 600,

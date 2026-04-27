@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "FindManga",
   "version": "3.1.0",
-  "description": "Find, save and organise manga & JAV codes from any webpage.",
+  "description": "Find, save and organise manga & Japanese Movie codes from any webpage.",
   "permissions": [
     "contextMenus",
     "storage",

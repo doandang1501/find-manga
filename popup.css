@@ -761,7 +761,7 @@ body.share-mode .jav-card.selected {
   flex-shrink: 0;
 }
 .ipi-type.manga { background: var(--sakura-dim); color: var(--sakura); }
-.ipi-type.jav   { background: var(--iris-dim);   color: var(--iris); }
+.ipi-type.jmovie { background: var(--iris-dim);   color: var(--iris); }
 .import-preview-item .ipi-code { font-weight: 700; color: var(--text); flex: 1; }
 .import-preview-item .ipi-tag  { color: var(--muted); font-size: 11px; }
 

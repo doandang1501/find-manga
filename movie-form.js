@@ -137,7 +137,7 @@ function setupButtons() {
 function saveJav() {
   const code = document.getElementById("input-code").value.trim();
   if (!code) {
-    showToast("JAV code is required.", "error");
+    showToast("Movie code is required.", "error");
     document.getElementById("input-code").focus();
     return;
   }

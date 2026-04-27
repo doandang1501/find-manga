@@ -1,13 +1,13 @@
 # FindManga
 
-A Microsoft Edge extension for saving, organising, and opening **Manga** and **JAV** codes directly from any webpage via right-click.
+A Microsoft Edge extension for saving, organising, and opening **Manga** and **Japanese Movie** codes directly from any webpage via right-click.
 
 ## Features
 
 - Highlight any text → right-click → **Find Manga** context menu
 - **Manga** — open a 6-digit code instantly, or save it with an optional tag
-- **JAV** — save a JAV code with a pasted thumbnail, optional tag, description, and rating via a dedicated form
-- **Code Library popup** — two separate sections (Manga / JAV), each with tag-tab navigation and a 2-column card grid
+- **Japanese Movies** — save a movie code with a pasted thumbnail, optional tag, description, and rating via a dedicated form
+- **Code Library popup** — two separate sections (Manga / J-Movie), each with tag-tab navigation and a 2-column card grid
 - **Rating** — 10-star scale with 0.5-step precision; hover to preview, click to set, click same value to clear
 - **Description** — free-text notes attached to any saved code
 - **Share / Export** — select cards and export to a `.zip` file containing all data and thumbnails
@@ -25,15 +25,15 @@ Highlight any text on a webpage, right-click, and select **Find Manga**:
 
 ```
 Find Manga
-├── Keep looking       → opens nhentai.website/g/[code] in a new tab
+├── Keep looking              → opens nhentai.website/g/[code] in a new tab
 ├── Save code
-│   ├── Save anyway    → saves untagged (visible under "All")
-│   └── Save by tag    → choose from your custom Manga tags
-└── Save JAV           → opens the Save JAV form window
+│   ├── Save anyway           → saves untagged (visible under "All")
+│   └── Save by tag           → choose from your custom Manga tags
+└── Save Japanese Movie       → opens the Save Japanese Movie form window
 ```
 
 > **Keep looking** and **Save code** require exactly a 6-digit number to be selected.  
-> **Save JAV** accepts any selected text as a pre-filled code suggestion.
+> **Save Japanese Movie** accepts any selected text as a pre-filled code suggestion.
 
 ---
 
@@ -45,7 +45,7 @@ Click the extension icon to open the library.
 
 | Button | Action |
 |---|---|
-| **Manga / JAV** toggle | Switch between the two library sections |
+| **Manga / J-Movie** toggle | Switch between the two library sections |
 | ↓ Import icon | Open the Import modal to load a `.zip` export |
 | ↑ Share icon | Enter share mode — checkboxes appear on every card |
 | ⚙ Gear icon | Open the tag management panel |
@@ -58,11 +58,11 @@ Click the extension icon to open the library.
 | **Cards (2-column grid)** | Cover thumbnail, title, code, tag badge, description (2-line), star rating, **Open** and **Delete** buttons |
 | **Click a card** | Opens the edit modal to set/update description and rating |
 
-### JAV section
+### J-Movie section
 
 | Element | Description |
 |---|---|
-| **Tag tabs** | `All` + your custom JAV tags |
+| **Tag tabs** | `All` + your custom J-Movie tags |
 | **Cards (2-column grid)** | Pasted thumbnail, code, tag badge, description (2-line), star rating, **Delete** button |
 | **Click a card** | Opens the edit modal to set/update description and rating |
 
@@ -70,7 +70,7 @@ Click the extension icon to open the library.
 
 ## Rating
 
-Each saved code (Manga or JAV) supports a **0–10 star rating** with **0.5-step** precision.
+Each saved code (Manga or Japanese Movie) supports a **0–10 star rating** with **0.5-step** precision.
 
 - **Hover** left half of a star → preview half-star value  
 - **Hover** right half → preview full-star value  
@@ -80,16 +80,16 @@ Each saved code (Manga or JAV) supports a **0–10 star rating** with **0.5-step
 
 ---
 
-## Save JAV Form
+## Save Japanese Movie Form
 
-Triggered by **Save JAV** in the right-click menu. Opens as a small popup window.
+Triggered by **Save Japanese Movie** in the right-click menu. Opens as a small popup window.
 
 1. **Thumbnail** — click the paste zone or press `Ctrl+V` anywhere to paste an image from the clipboard
-2. **JAV Code** — enter or edit the code (pre-filled if text was selected)
-3. **Tag** — pick an existing JAV tag from the dropdown, or type a new one
+2. **Movie Code** — enter or edit the code (pre-filled if text was selected)
+3. **Tag** — pick an existing J-Movie tag from the dropdown, or type a new one
 4. **Description** — optional free-text notes (max 500 characters)
 5. **Rating** — optional 10-star rating with 0.5-step precision
-6. Click **Save** — the entry appears in the popup's JAV section immediately
+6. Click **Save** — the entry appears in the popup's J-Movie section immediately
 
 ---
 
@@ -110,7 +110,7 @@ findmanga-[timestamp].zip
 ├── manifest.json        # Version and export date
 ├── data.json            # All selected items (code, tag, description, rating, title, thumbUrl)
 └── thumbs/
-    └── jav_[code].jpg   # JAV thumbnails extracted from storage
+    └── jav_[code].jpg   # Japanese Movie thumbnails extracted from storage
 ```
 
 > Manga thumbnails are stored as nhentai URLs — the recipient's extension fetches them automatically.
@@ -135,9 +135,9 @@ FindManga/
 ├── popup.html           # Library popup UI
 ├── popup.css            # Library popup styles
 ├── popup.js             # Library popup logic (fetch, tags, rating, share, import)
-├── jav-form.html        # Save JAV form UI
-├── jav-form.css         # Save JAV form styles
-├── jav-form.js          # Save JAV form logic (paste, rating, save)
+├── movie-form.html        # Save Japanese Movie form UI
+├── movie-form.css         # Save Japanese Movie form styles
+├── movie-form.js          # Save Japanese Movie form logic (paste, rating, save)
 ├── jszip.min.js         # JSZip v3 — used for ZIP export and import
 └── icons/
     ├── icon16.png
