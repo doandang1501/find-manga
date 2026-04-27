@@ -1,12 +1,16 @@
 {
   "manifest_version": 3,
   "name": "FindManga",
-  "version": "2.0.0",
-  "description": "Find and save manga codes from any webpage.",
+  "version": "3.0.0",
+  "description": "Find, save and organise manga & JAV codes from any webpage.",
   "permissions": [
     "contextMenus",
     "storage",
-    "scripting"
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://nhentai.website/*"
   ],
   "background": {
     "service_worker": "background.js"

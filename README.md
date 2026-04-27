@@ -1,73 +1,116 @@
 # FindManga
 
-A lightweight Microsoft Edge extension for saving and opening manga by 6-digit code — directly from any webpage via right-click.
+A Microsoft Edge extension for saving, organising, and opening **Manga** and **JAV** codes directly from any webpage via right-click.
 
 ## Features
 
-- Highlight any 6-digit number → right-click → **Find Manga**
-- Open the manga in a new tab instantly
-- Save codes to a personal library with custom tags
-- Browse saved codes through the popup with tag-based filtering
+- Highlight any text → right-click → **Find Manga** context menu
+- **Manga** — open a 6-digit code instantly, or save it with an optional tag
+- **JAV** — save a JAV code with a pasted thumbnail and optional tag via a dedicated form
+- **Code Library popup** — two separate sections (Manga / JAV), each with tag-tab navigation and a 2-column card grid
+- Auto-fetches manga title and cover thumbnail; results cached locally for 7 days
+- **Auto light/dark theme** — light from 06:00–19:59, dark from 20:00–05:59, switches automatically
+- Full-height popup, smooth scrolling, custom styled scrollbar
+- Tag changes rebuild the right-click menu in real time (no restart needed)
 
-## How it works
+---
 
-1. Highlight a 6-digit number on any webpage
-2. Right-click → **Find Manga**
-3. Choose an action from the submenu:
+## Context Menu
+
+Highlight any text on a webpage, right-click, and select **Find Manga**:
 
 ```
 Find Manga
-├── Keep looking       → opens https://nhentai.website/g/[code]
-└── Save code
-    ├── Save anyway    → saves to #anyway
-    └── Save by tag    → pick from your configured tags
+├── Keep looking       → opens nhentai.website/g/[code] in a new tab
+├── Save code
+│   ├── Save anyway    → saves untagged (visible under "All")
+│   └── Save by tag    → choose from your custom Manga tags
+└── Save JAV           → opens the Save JAV form window
 ```
+
+> **Keep looking** and **Save code** require exactly a 6-digit number to be selected.  
+> **Save JAV** accepts any selected text as a pre-filled code suggestion.
+
+---
 
 ## Popup — Code Library
 
-Click the extension icon to open the library:
+Click the extension icon to open the library.
 
-- **Tag navigation bar** — `All`, your custom tags, `#anyway`; defaults to **All**
-- **Code cards** — show the 6-digit code, its tag, an open link, and a delete button
-- **Gear icon** — manage tags (add / remove); new tags appear in the right-click menu immediately
+### Manga section
 
-## Project structure
+| Element | Description |
+|---|---|
+| **Manga / JAV toggle** | Switch between the two sections |
+| **Tag tabs** | `All` + your custom tags; filters the card grid |
+| **Cards (2-column grid)** | Cover thumbnail (fetched live), title, 6-digit code, tag badge, **Open** and **Delete** buttons |
+| **Gear icon** | Manage Manga tags (add / remove); updates the right-click menu immediately |
+
+### JAV section
+
+| Element | Description |
+|---|---|
+| **Tag tabs** | `All` + your custom JAV tags |
+| **Cards (2-column grid)** | Thumbnail you pasted, JAV code, tag badge, **Delete** button |
+| **Gear icon** | Manage JAV tags independently from Manga tags |
+
+---
+
+## Save JAV Form
+
+Triggered by **Save JAV** in the right-click menu. Opens as a small popup window.
+
+1. **Thumbnail** — click the paste zone (or press `Ctrl+V` anywhere on the form) to paste an image from the clipboard
+2. **JAV Code** — enter or edit the code (pre-filled if text was selected)
+3. **Tag** — pick an existing JAV tag from the dropdown, or type a new one in the text field
+4. Click **Save** — the entry appears in the popup's JAV section immediately
+
+---
+
+## Project Structure
 
 ```
 FindManga/
-├── manifest.json       # Extension manifest (Manifest V3)
-├── background.js       # Service worker — context menu & storage logic
-├── popup.html          # Extension popup UI
-├── popup.css           # Popup styles
-├── popup.js            # Popup logic
+├── manifest.json        # Extension manifest (Manifest V3)
+├── background.js        # Service worker — context menus & storage logic
+├── popup.html           # Library popup UI
+├── popup.css            # Library popup styles
+├── popup.js             # Library popup logic (fetch, tags, rendering)
+├── jav-form.html        # Save JAV form UI
+├── jav-form.css         # Save JAV form styles
+├── jav-form.js          # Save JAV form logic (paste, save, toast)
 └── icons/
     ├── icon16.png
     ├── icon48.png
     └── icon128.png
 ```
 
+---
+
 ## Installation (Edge Developer Mode)
 
-1. Open Edge and go to `edge://extensions/`
-2. Enable **Developer mode** (bottom-left toggle)
+1. Open Edge and navigate to `edge://extensions/`
+2. Enable **Developer mode** (toggle in the bottom-left)
 3. Click **Load unpacked** and select the `FindManga` folder
-4. The extension is active — no restart needed
+4. The extension is active — no restart required
+
+---
 
 ## Permissions
 
 | Permission | Reason |
-| --- | --- |
-| `contextMenus` | Adds the right-click menu |
-| `storage` | Persists saved codes and tags locally |
+|---|---|
+| `contextMenus` | Adds the right-click Find Manga menu |
+| `storage` | Persists saved codes, tags, and metadata cache locally |
 | `scripting` | Shows in-page alerts for invalid selections |
+| `activeTab` | Reads the current tab context for script injection |
+| `host_permissions` → `nhentai.website` | Fetches manga title and cover thumbnail |
 
-No host permissions. No data leaves your browser.
+No data is sent to any third-party service. Everything is stored in your browser's local extension storage.
+
+---
 
 ## Requirements
 
-<<<<<<< HEAD
-- Microsoft Edge 88+ (Manifest V3 support)
-- Works on any webpage
-=======
 - Microsoft Edge 88+ (Manifest V3)
->>>>>>> e51185a (Add feature)
+- Works on any webpage

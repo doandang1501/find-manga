@@ -2,41 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FindManga</title>
   <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
 
-  <!-- HEADER -->
   <header>
-    <span class="logo">FindManga</span>
+    <div class="header-left">
+      <span class="logo">FindManga</span>
+      <div class="section-toggle">
+        <button class="sec-btn active" data-sec="manga">Manga</button>
+        <button class="sec-btn"        data-sec="jav">JAV</button>
+      </div>
+    </div>
     <button id="btn-settings" class="icon-btn" title="Manage tags">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="12" cy="12" r="3"/>
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
       </svg>
     </button>
   </header>
 
   <!-- SETTINGS PANEL -->
-  <div id="settings-panel" class="panel hidden">
-    <h2 class="panel-title">Manage Tags</h2>
-    <div class="add-tag-row">
-      <input id="input-tag" type="text" placeholder="New tag name..." maxlength="24" />
-      <button id="btn-add-tag">Add</button>
+  <div id="settings-panel" class="settings-panel hidden">
+    <div class="settings-group">
+      <div class="settings-group-label">Manga Tags</div>
+      <div class="add-tag-row">
+        <input id="input-manga-tag" type="text" placeholder="New manga tag..." maxlength="24" />
+        <button id="btn-add-manga-tag" class="btn-add">Add</button>
+      </div>
+      <ul id="manga-tag-list" class="tag-chip-list"></ul>
     </div>
-    <ul id="tag-list"></ul>
+    <div class="settings-group">
+      <div class="settings-group-label">JAV Tags</div>
+      <div class="add-tag-row">
+        <input id="input-jav-tag" type="text" placeholder="New JAV tag..." maxlength="24" />
+        <button id="btn-add-jav-tag" class="btn-add">Add</button>
+      </div>
+      <ul id="jav-tag-list" class="tag-chip-list"></ul>
+    </div>
   </div>
 
-  <!-- LIBRARY VIEW -->
-  <div id="library-view">
-    <nav id="tab-nav">
-      <!-- tabs injected by JS -->
-    </nav>
-    <div id="code-list">
-      <!-- code cards injected by JS -->
+  <!--
+    sections-wrapper: position:relative, flex:1
+    Both sections live here as position:absolute overlays.
+    Switching uses opacity+transform — zero layout reflow, zero popup resize.
+  -->
+  <div class="sections-wrapper">
+
+    <div id="section-manga" class="section">
+      <nav id="manga-tab-nav" class="tab-nav"></nav>
+      <div id="manga-code-list" class="code-list"></div>
     </div>
+
+    <div id="section-jav" class="section hidden">
+      <nav id="jav-tab-nav" class="tab-nav"></nav>
+      <div id="jav-code-list" class="code-list"></div>
+    </div>
+
   </div>
 
   <script src="popup.js"></script>
